@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Auth and User Data</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="assets/Xogo_Logo_15K.png" alt="Logo">
+      <h1>Bansen Labs</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+<!-- Login Form -->
+<div class="container" id="loginUI">
+    <h2>Login</h2>
+    <div id="loginErrorMessage" class="hidden error-message"></div>
+    <form>
+      <input type="email" id="loginEmail" placeholder="Email" />
+      <input type="password" id="loginPassword" placeholder="Password" />
+      <button type="button" onclick="login()">Login</button>
+      <p>Don't have an account? <a href="#" onclick="showRegistration()">Register here</a></p>
+      <p><a href="#" onclick="showForgotPassword()">Forgot my password</a></p>
+    </form>
+  </div>
+  
+  <!-- Forgot Password Form -->
+  <div class="container hidden" id="forgotPasswordUI">
+    <h2>Reset Password</h2>
+    <form>
+      <input type="email" id="forgotPasswordEmail" placeholder="Enter your email" />
+      <button type="button" onclick="resetPassword()">Send Reset Link</button>
+    </form>
+    <div id="forgotPasswordMessage" class="hidden error-message"></div>
+    <p><a href="#" onclick="showLogin()">Back to Login</a></p>
+  </div>
+   
+
+<!-- Registration form -->
+<div class="container hidden" id="registerUI">
+  <h2>Register</h2>
+  <form>
+    <input type="email" id="registerEmail" placeholder="Email" />
+    <input type="password" id="registerPassword" placeholder="Password" />
+    <button type="button" onclick="register()">Register</button>
+  </form>
+  <div id="registerErrorMessage" class="hidden error-message"></div>
+</div>
+    <!-- User Data, Tasks, and Logout - Hidden by Default -->
+    <div class="container hidden" id="userData">
+      <h2>User Data</h2>
+      <div id="dataTable"></div>
+    </div>
+
+    <div class="container hidden" id="userTasks">
+      <h2>User Tasks</h2>
+      <div id="tasksTable"></div>
+    </div>
+
+    <div class="container hidden" id="logoutButton">
+      <button onclick="logout()">Logout</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Bansen Labs. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

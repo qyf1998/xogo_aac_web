@@ -1,0 +1,185 @@
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+
+  /* Body and HTML should fill the entire viewport height */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Header Styling */
+  header {
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo img {
+    width: auto; /* Auto to maintain the aspect ratio */
+    height: 50px; /* Set a fixed height */
+    margin-right: 15px;
+  }
+
+  /* General Styling */
+.hidden {
+    display: none;
+  }
+  
+  /* Other styling code here... */
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+  }
+  
+  nav ul li {
+    margin: 0 15px;
+  }
+  
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  nav ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Main Content Styling */
+  main {
+    flex: 1; /* This makes the main content grow to fill the remaining space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+  }
+  
+  .container {
+    background-color: white;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+  }
+  
+/* Error message styling */
+.error-message {
+    color: red;
+    margin-top: 10px;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+
+  
+  /* Success message styling */
+.success-message {
+    color: green;
+    margin-top: 10px;
+  }
+  
+  /* Error message styling */
+  .error-message {
+    color: red;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Table Styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f4f4f4;
+  }
+  
+  td[contenteditable="true"] {
+    background-color: #f9f9f9;
+    cursor: text;
+  }
+  
+  td input[type="checkbox"] {
+    cursor: pointer;
+  }
+  
+/* Footer should stick at the bottom */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+  }
+  
+  footer .footer-links {
+    margin-top: 10px;
+  }
+  
+  footer .footer-links a {
+    color: #fff;
+    margin: 0 10px;
+    text-decoration: none;
+  }
+  
+  footer .footer-links a:hover {
+    text-decoration: underline;
+  }
