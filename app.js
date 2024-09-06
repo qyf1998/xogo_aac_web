@@ -176,6 +176,7 @@ async function saveField(docId, field, newValue) {
 function showRegistration() {
     document.getElementById("loginUI").classList.add('hidden');
     document.getElementById("registerUI").classList.remove('hidden');
+    document.getElementById("forgotPasswordUI").classList.add('hidden');
 }
 
 // Function to register new users
@@ -213,12 +214,14 @@ function register() {
 // Function to show forgot password form
 function showForgotPassword() {
     document.getElementById("loginUI").classList.add('hidden');
+    document.getElementById("registerUI").classList.add('hidden');
     document.getElementById("forgotPasswordUI").classList.remove('hidden');
 }
 
 // Function to show login form
 function showLogin() {
     document.getElementById("forgotPasswordUI").classList.add('hidden');
+    document.getElementById("registerUI").classList.add('hidden');
     document.getElementById("loginUI").classList.remove('hidden');
 }
 
