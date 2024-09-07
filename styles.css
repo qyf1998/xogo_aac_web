@@ -38,7 +38,59 @@ html, body {
     height: 50px; /* Set a fixed height */
     margin-right: 15px;
   }
+/* Styling for scrollable table containers */
+.scrollable-table {
+  min-height: 500px;  /* Set a minimum height for the container */
+  max-height: 500px;  /* Ensure the container does not exceed this height */
+  overflow-y: auto;   /* Enable vertical scrolling if the content exceeds */
+  margin-top: 15px;   /* Add some margin on top for spacing */
+  border: 1px solid #ddd;  /* Add a border to the container */
+  border-radius: 8px;  /* Add rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  /* Add a subtle shadow */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Makes both containers equal height */
+}
 
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Table header and cell styling */
+th, td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+  background-color: #f9f9f9;
+}
+
+/* Ensure headers stay visible when scrolling */
+th {
+  background-color: #f4f4f4;
+  position: sticky;
+  top: 0;
+}
+
+/* Alternate row background colors for better readability */
+tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+tr:nth-child(even) {
+  background-color: #fff;
+}
+
+/* Customize scrollbar appearance */
+.scrollable-table::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable-table::-webkit-scrollbar-thumb {
+  background-color: #007bff;
+  border-radius: 4px;
+}
   /* General Styling */
 .hidden {
     display: none;
@@ -183,3 +235,63 @@ footer {
   footer .footer-links a:hover {
     text-decoration: underline;
   }
+
+
+/* Styling for the sort options container */
+/* Align User Tasks header and Sort by dropdown on the same line */
+.tasks-header {
+  display: flex;
+  justify-content: space-between; /* Space between the header and sort dropdown */
+  align-items: center; /* Vertically align the items */
+  margin-bottom: 15px; /* Add some space below the header section */
+}
+
+/* Styling for the sort options */
+.sort-options {
+  display: flex;
+  align-items: center;
+}
+
+.sort-options label {
+  margin-right: 10px; /* Add some space between the label and the select box */
+}
+
+.sort-options select {
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.container > h2 {
+  display: inline-block; /* Ensure the heading stays inline */
+  margin-right: auto; /* Pushes the "Sort by" button to the right */
+}
+
+
+/* Remove background color and padding from the logout button's parent */
+#logoutButton {
+  background-color: transparent; /* Remove any background */
+  padding: 0; /* Remove any padding */
+  margin: 0; /* Remove any margin */
+}
+
+#logoutButton button {
+  width: 200px;
+  background-color: #ff4d4d; /* Red background */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  font-size: 14px; /* Adjust font size */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Change cursor to pointer */
+  transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+#logoutButton button:hover {
+  background-color: #e60000; /* Darker red on hover */
+}
+
+#logoutButton button:active {
+  background-color: #cc0000; /* Even darker red when clicked */
+}

@@ -20,6 +20,10 @@
           <li><a href="#">Contact</a></li>
         </ul>
       </nav>
+
+      <div class="container hidden" id="logoutButton">
+        <button onclick="logout()">Logout</button>
+      </div>
     </header>
 
     <main>
@@ -72,17 +76,33 @@
       <!-- User Data, Tasks, and Logout - Hidden by Default -->
       <div class="container hidden" id="userData">
         <h2>User Data</h2>
-        <div id="dataTable"></div>
+        <div class="scrollable-table">
+          <div id="dataTable"></div>
+        </div>
       </div>
 
       <div class="container hidden" id="userTasks">
-        <h2>User Tasks</h2>
-        <div id="tasksTable"></div>
+        <div class="tasks-header">
+          <h2>User Tasks</h2>
+          <div class="sort-options">
+            <label for="sort-by">Sort by:</label>
+            <select id="sort-by" onchange="sortTasks()">
+              <option value="category-asc">Category (A-Z)</option>
+              <option value="category-desc">Category (Z-A)</option>
+              <option value="completed-asc">Completion (Incomplete first)</option>
+              <option value="completed-desc">Completion (Complete first)</option>
+              <option value="timestamp-asc">Timestamp (Oldest first)</option>
+              <option value="timestamp-desc">Timestamp (Newest first)</option>
+            </select>
+          </div>
+        </div>
+      
+        <div class="scrollable-table">
+          <div id="tasksTable"></div>
+        </div>
       </div>
 
-      <div class="container hidden" id="logoutButton">
-        <button onclick="logout()">Logout</button>
-      </div>
+
     </main>
 
     <footer>

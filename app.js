@@ -97,66 +97,66 @@ async function fetchUserData(uid) {
     userDataDisplay.appendChild(table);
 }
 
-// Function to fetch user tasks
-async function fetchUserTasks(uid) {
-    const q = query(collection(db, "tasks"), where("uid", "==", uid));
-    const querySnapshot = await getDocs(q);
-    const userTasksDisplay = document.getElementById("tasksTable");
-    userTasksDisplay.innerHTML = ''; // Clear previous data
+// // Function to fetch user tasks
+// async function fetchUserTasks(uid) {
+//     const q = query(collection(db, "tasks"), where("uid", "==", uid));
+//     const querySnapshot = await getDocs(q);
+//     const userTasksDisplay = document.getElementById("tasksTable");
+//     userTasksDisplay.innerHTML = ''; // Clear previous data
 
-    // Create table
-    const table = document.createElement("table");
-    table.border = "1";
+//     // Create table
+//     const table = document.createElement("table");
+//     table.border = "1";
 
-    // Create table header
-    const header = table.createTHead();
-    const headerRow = header.insertRow(0);
-    const headers = ["Task", "Category", "Completed", "Notes", "Timestamp"];
-    headers.forEach((headerText, index) => {
-        const cell = headerRow.insertCell(index);
-        cell.outerHTML = `<th>${headerText}</th>`;
-    });
+//     // Create table header
+//     const header = table.createTHead();
+//     const headerRow = header.insertRow(0);
+//     const headers = ["Task", "Category", "Completed", "Notes", "Timestamp"];
+//     headers.forEach((headerText, index) => {
+//         const cell = headerRow.insertCell(index);
+//         cell.outerHTML = `<th>${headerText}</th>`;
+//     });
 
-    // Create table body
-    const tbody = table.createTBody();
+//     // Create table body
+//     const tbody = table.createTBody();
 
-    // Populate table with user tasks
-    querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const row = tbody.insertRow();
+//     // Populate table with user tasks
+//     querySnapshot.forEach((doc) => {
+//         const data = doc.data();
+//         const row = tbody.insertRow();
 
-        // Editable task field
-        const taskCell = row.insertCell(0);
-        taskCell.innerText = data.task;
-        taskCell.contentEditable = true;  // Make the cell editable
-        taskCell.addEventListener('blur', () => saveField(doc.id, 'task', taskCell.innerText));  // Save on losing focus
+//         // Editable task field
+//         const taskCell = row.insertCell(0);
+//         taskCell.innerText = data.task;
+//         taskCell.contentEditable = true;  // Make the cell editable
+//         taskCell.addEventListener('blur', () => saveField(doc.id, 'task', taskCell.innerText));  // Save on losing focus
 
-        // Non-editable category field
-        const categoryCell = row.insertCell(1);
-        categoryCell.innerText = data.category;
+//         // Non-editable category field
+//         const categoryCell = row.insertCell(1);
+//         categoryCell.innerText = data.category;
 
-        // Editable completed field (checkbox)
-        const completedCell = row.insertCell(2);
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.checked = data.completed;
-        checkbox.addEventListener('change', () => saveField(doc.id, 'completed', checkbox.checked));  // Save when checkbox changes
-        completedCell.appendChild(checkbox);
+//         // Editable completed field (checkbox)
+//         const completedCell = row.insertCell(2);
+//         const checkbox = document.createElement('input');
+//         checkbox.type = 'checkbox';
+//         checkbox.checked = data.completed;
+//         checkbox.addEventListener('change', () => saveField(doc.id, 'completed', checkbox.checked));  // Save when checkbox changes
+//         completedCell.appendChild(checkbox);
 
-        // Editable notes field
-        const notesCell = row.insertCell(3);
-        notesCell.innerText = data.notes || "";
-        notesCell.contentEditable = true;  // Make the cell editable
-        notesCell.addEventListener('blur', () => saveField(doc.id, 'notes', notesCell.innerText));  // Save on losing focus
+//         // Editable notes field
+//         const notesCell = row.insertCell(3);
+//         notesCell.innerText = data.notes || "";
+//         notesCell.contentEditable = true;  // Make the cell editable
+//         notesCell.addEventListener('blur', () => saveField(doc.id, 'notes', notesCell.innerText));  // Save on losing focus
 
-        // Timestamp field (non-editable)
-        const timestampCell = row.insertCell(4);
-        timestampCell.innerText = new Date(data.timestamp.seconds * 1000).toLocaleString();
-    });
+//         // Timestamp field (non-editable)
+//         const timestampCell = row.insertCell(4);
+//         timestampCell.innerText = new Date(data.timestamp.seconds * 1000).toLocaleString();
+//     });
 
-    // Append table to userTasksDisplay
-    userTasksDisplay.appendChild(table);
-}
+//     // Append table to userTasksDisplay
+//     userTasksDisplay.appendChild(table);
+// }
 
 // Function to save updated fields back to Firestore
 async function saveField(docId, field, newValue) {
@@ -244,6 +244,123 @@ function resetPassword() {
         });
 }
 
+// Global variable to store tasks data
+let tasksData = [];
+
+// Function to fetch user tasks and store them in global tasksData
+async function fetchUserTasks(uid) {
+    const q = query(collection(db, "tasks"), where("uid", "==", uid));
+    const querySnapshot = await getDocs(q);
+    const userTasksDisplay = document.getElementById("tasksTable");
+    userTasksDisplay.innerHTML = ''; // Clear previous data
+
+    tasksData = []; // Clear previous tasksData
+
+    querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        tasksData.push({
+            id: doc.id,
+            task: data.task,
+            category: data.category,
+            completed: data.completed,
+            notes: data.notes || "",
+            timestamp: data.timestamp
+        });
+    });
+
+    renderTasksTable(tasksData);
+}
+
+// Function to render tasks table
+function renderTasksTable(tasks) {
+    const userTasksDisplay = document.getElementById("tasksTable");
+    userTasksDisplay.innerHTML = ''; // Clear previous table
+
+    // Create table
+    const table = document.createElement("table");
+    table.border = "1";
+
+    // Create table header
+    const header = table.createTHead();
+    const headerRow = header.insertRow(0);
+    const headers = ["Task", "Category", "Completed", "Notes", "Timestamp"];
+    headers.forEach((headerText, index) => {
+        const cell = headerRow.insertCell(index);
+        cell.outerHTML = `<th>${headerText}</th>`;
+    });
+
+    // Create table body
+    const tbody = table.createTBody();
+
+    // Populate table with sorted tasks
+    tasks.forEach((data) => {
+        const row = tbody.insertRow();
+
+        // Editable task field
+        const taskCell = row.insertCell(0);
+        taskCell.innerText = data.task;
+        taskCell.contentEditable = true;
+        taskCell.addEventListener('blur', () => saveField(data.id, 'task', taskCell.innerText));
+
+        // Non-editable category field
+        const categoryCell = row.insertCell(1);
+        categoryCell.innerText = data.category;
+
+        // Editable completed field (checkbox)
+        const completedCell = row.insertCell(2);
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = data.completed;
+        checkbox.addEventListener('change', () => saveField(data.id, 'completed', checkbox.checked));
+        completedCell.appendChild(checkbox);
+
+        // Editable notes field
+        const notesCell = row.insertCell(3);
+        notesCell.innerText = data.notes;
+        notesCell.contentEditable = true;
+        notesCell.addEventListener('blur', () => saveField(data.id, 'notes', notesCell.innerText));
+
+        // Timestamp field (non-editable)
+        const timestampCell = row.insertCell(4);
+        timestampCell.innerText = new Date(data.timestamp.seconds * 1000).toLocaleString();
+    });
+
+    userTasksDisplay.appendChild(table);
+}
+
+
+
+window.sortTasks = sortTasks;
+
+// Function to sort tasks
+function sortTasks() {
+    const sortBy = document.getElementById("sort-by").value;
+
+    let sortedTasks = [...tasksData]; // Copy tasksData to avoid mutating original
+
+    switch (sortBy) {
+        case "category-asc":
+            sortedTasks.sort((a, b) => a.category.localeCompare(b.category));
+            break;
+        case "category-desc":
+            sortedTasks.sort((a, b) => b.category.localeCompare(a.category));
+            break;
+        case "completed-asc":
+            sortedTasks.sort((a, b) => a.completed - b.completed);
+            break;
+        case "completed-desc":
+            sortedTasks.sort((a, b) => b.completed - a.completed);
+            break;
+        case "timestamp-asc":
+            sortedTasks.sort((a, b) => a.timestamp.seconds - b.timestamp.seconds);
+            break;
+        case "timestamp-desc":
+            sortedTasks.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds);
+            break;
+    }
+
+    renderTasksTable(sortedTasks);
+}
 
 
 // Expose functions globally
